@@ -1,5 +1,5 @@
 {
-  "name": "moa-data",
+  "name": "my_calrendar",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -35,17 +35,14 @@
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "dayjs": "^1.11.2",
-    "lodash": "^4.17.21",
     "react": "^18.1.0",
-    "react-datepicker": "^4.8.0",
     "react-dom": "^18.1.0",
     "react-error-boundary": "^3.1.4",
     "react-redux": "^8.0.1",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-use": "^17.3.2",
-    "victory": "^36.4.1",
-    "victory-core": "^36.4.0",
+    "store": "^2.0.12",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {

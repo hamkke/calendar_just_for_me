@@ -1,7 +1,14 @@
+// import Layout from 'components/layout'
+// import ITEM from './Data'
 import Layout from 'components/layout'
 
 const App = () => {
-  return <div>안녕하세요</div>
+  return (
+    <div>
+      {/* <ITEM /> */}
+      <Layout />
+    </div>
+  )
 }
 
 export default App

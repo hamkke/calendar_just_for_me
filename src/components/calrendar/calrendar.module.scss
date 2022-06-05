@@ -1,0 +1,123 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+@use '/src/styles/mixins/flexbox';
+
+.calrendarWrap {
+  width: 100%;
+  min-width: 360px !important;
+  padding: 10px 20px 20px;
+  @include responsive.after(LD) {
+    width: 70%;
+    border-left: 5px solid colors.$GRAY2;
+  }
+}
+
+.calrendarNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  .btnWrap {
+    display: flex;
+
+    & button {
+      width: 50%;
+      padding: 5px 10px;
+      font-size: 16px;
+      border: 3px solid colors.$GRAY2;
+      transition: all 0.2s;
+      @include responsive.after(LD) {
+        font-size: 20px;
+      }
+
+      &:first-child {
+        margin-right: 10px;
+      }
+
+      &:hover {
+        color: colors.$WHITE;
+        background-color: colors.$GRAY2;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 25px;
+    font-weight: bold;
+    @include responsive.after(LD) {
+      font-size: 24px;
+    }
+  }
+}
+
+.dayListWrap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  min-width: 392px;
+  border-top: 3px solid colors.$GRAY2;
+  border-right: 3px solid colors.$GRAY2;
+  border-left: 3px solid colors.$GRAY2;
+
+  & li {
+    flex: 1 1 14%;
+    padding: 5px 0;
+    font-size: 16px;
+    text-align: center;
+    border-right: 3px solid colors.$GRAY2;
+    @include responsive.after(MD) {
+      font-size: 20px;
+    }
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.listWrap {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 392px;
+  border-top: 3px solid colors.$GRAY2;
+  border-right: 3px solid colors.$GRAY2;
+  border-left: 3px solid colors.$GRAY2;
+}
+
+.listItem {
+  flex: 1 1 14%;
+  height: 100px;
+  padding: 4px;
+  border-right: 3px solid colors.$GRAY2;
+  border-bottom: 3px solid colors.$GRAY2;
+  @include responsive.after(LD) {
+    height: 115px;
+  }
+
+  & button {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    @include responsive.after(MD) {
+      font-size: 20px;
+    }
+  }
+
+  & .listItemPast {
+    color: colors.$GRAYD;
+  }
+
+  & .listItemCurrent {
+    color: colors.$GRAY2;
+  }
+
+  & .listItemNext {
+    color: colors.$GRAYD;
+  }
+
+  &:nth-child(7n) {
+    border-right: none;
+  }
+}
