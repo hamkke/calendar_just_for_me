@@ -1,15 +1,15 @@
-import { useAppSelector } from 'hooks/useAppSelector'
+// import { useAppSelector } from 'hooks/useAppSelector'
 import styles from './dateList.module.scss'
-import { getPastData } from 'states/userData'
+// import { getPastData } from 'states/userData'
 
 const DateList = () => {
-  const userData = useAppSelector(getPastData)
+  // const userData = useAppSelector(getPastData)
 
-  const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
+  // const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
 
   return (
     <div className={styles.dataListWrap}>
-      <h2>평균주기: {average}일</h2>
+      {/* <h2>평균주기: {average}일</h2>
       <ul className={styles.listWrap}>
         {userData.map((a) => {
           return (
@@ -19,7 +19,8 @@ const DateList = () => {
             </li>
           )
         })}
-      </ul>
+      </ul> */}
+      wqewe
     </div>
   )
 }

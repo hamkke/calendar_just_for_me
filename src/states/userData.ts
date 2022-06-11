@@ -1,47 +1,65 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '.'
-
-import store from 'store'
+import { axios } from 'hooks/worker'
+// import store from 'store'
 import DATA from 'data.json'
-import dayjs from 'dayjs'
+import GetDay from 'components/calrendar/getDay'
 
-// interface UserState {
-//   value: {
-//     all: {
-//       heartRate: IHeartRate[]
-//       step: IStep[]
-//     }
-//     filter: {
-//       heartRate: IHeartRate[]
-//       step: IStep[]
-//     }
-//     userInfo: {
-//       id: string
-//       date: string
-//       member_seq: number
-//     }[]
-//   }
-// }
-
-const INITIAL_STATE = { ...DATA }
-
+interface IOOO {
+  todayDate?: string | undefined
+  memo?: string | undefined
+  todayBg?: string | undefined
+  id: string
+  year: number
+  month: number
+  date: number
+  currentStatus: string
+}
+const INITIAL_STATE = {
+  past: [
+    {
+      id: '2022-04-17',
+      start: '2022-04-12',
+      end: '2022-04-17',
+      totalDate: 6,
+    },
+    {
+      id: '2022-04-17',
+      start: '2022-04-12',
+      end: '2022-04-17',
+      totalDate: 6,
+    },
+  ],
+  presnt: [
+    {
+      todayDate: '',
+      memo: '',
+      todayBg: '',
+      id: '',
+      year: 0,
+      month: 0,
+      date: 0,
+      currentStatus: '',
+    },
+  ],
+}
+// console.log(INITIAL_STATE)
+// const INITIAL_STATE = { ...DATA }
 const systemSlice = createSlice({
   name: 'userData',
   initialState: INITIAL_STATE,
   reducers: {
-    // getFilteredStepData: (state, action) => {
-    //   state.value.filter.step = state.value.all.step.filter((item) => {
-    //     return (
-    //       action.payload.startDate <= formatedDate(item.crt_ymdt) &&
-    //       formatedDate(item.crt_ymdt) <= action.payload.endDate
-    //     )
-    //   })
-    // },
+    setDate: (state, action) => {
+      // console.log(state.presnt)
+      console.log(action)
+      state.presnt = action.payload
+    },
   },
 })
 
-export const {} = systemSlice.actions
+export const { setDate } = systemSlice.actions
 
 export default systemSlice.reducer
 
 export const getPastData = (state: RootState) => state.userData.past
+export const getPresentData = (state: RootState) => state.userData.presnt

@@ -105,15 +105,15 @@
     }
   }
 
-  & .listItemPast {
+  & .pastMonth {
     color: colors.$GRAYD;
   }
 
-  & .listItemCurrent {
+  & .thisMonth {
     color: colors.$GRAY2;
   }
 
-  & .listItemNext {
+  & .nextMonth {
     color: colors.$GRAYD;
   }
 
