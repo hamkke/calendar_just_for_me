@@ -44,17 +44,16 @@ yarn install && yarn start
 18. 리덕스에 데이터를 저장해 리렌더링이 되도 데이터가 없어지지 않는다 <strong>(구현(O))</strong>
 
 
-
-
 # 📸 구현 결과
 
-## - 모바일
-<img src="https://user-images.githubusercontent.com/46497281/172038683-40a18eb0-5475-4118-999b-7e9a36688a91.png" width="300px">
+<p>
+<img align="left" src="https://user-images.githubusercontent.com/46497281/172038683-40a18eb0-5475-4118-999b-7e9a36688a91.png" width="300px">
 
-## - 웹
-<img src="https://user-images.githubusercontent.com/46497281/173218047-b607c3e7-8e61-46cb-ae81-a0f969a9b117.png" width="500px">
+<img align="right" src="https://user-images.githubusercontent.com/46497281/173219326-460e8a16-1fe7-4283-83a6-f734a332b9eb.png" width="300px">
+</p>
 
-## -모달
-<img src="https://user-images.githubusercontent.com/46497281/173218269-bdccc1b8-8ceb-4896-a0b0-d2afa3ae95cc.png" width="500px">
+
+
+
 
 
