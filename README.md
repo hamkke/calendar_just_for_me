@@ -30,17 +30,18 @@ yarn install && yarn start
 4. 이전 달력 보기 버튼 <strong>(구현(O))</strong>
 5. 현재 월 보기 <strong>(구현(O))</strong>
 6. 다음 달력 보기 버튼 <strong>(구현(O))</strong>
-7. 시작일 텍스트 <strong>(구현(X))</strong>
-8. 시작일을 기준으로 마지막일을 표시하면 기간에 해당하는 달력에 배경색이 생긴다 <strong>(구현(X))</strong>
+7. 시작일 텍스트 <strong>(구현(O))</strong>
+8. 시작일을 기준으로 마지막일을 표시하면 기간에 해당하는 달력에 배경색이 생긴다 <strong>(구현(O))</strong>
 9. 날짜를 누르면 모달창 나옴 <strong>(구현(O))</strong>
 10. 모달창 <strong>(구현(O))</strong>
 11. 선택한 날짜 <strong>(구현(O))</strong>
 12. 시작일 버튼 > 누르면 해당날짜에 텍스트 생김 <strong>(구현(X))</strong>
 13. 마지막일 버튼 > 누르면 해당날짜에 텍스트 생김 <strong>(구현(X))</strong>
 14. 메모장 기능 <strong>(구현(O))</strong>
-15. 날짜의 배경색 지정 <strong>(구현(X))</strong>
+15. 날짜의 배경색 지정 <strong>(구현(O))</strong>
 16. 닫기 버튼 <strong>(구현(O))</strong>
-17. 확인 버튼, 버튼을 누르면 모달창이 닫힘 <strong>(구현(X))</strong>
+17. 확인 버튼, 버튼을 누르면 모달창이 닫힘 <strong>(구현(O))</strong>
+18. 리덕스에 데이터를 저장해 리렌더링이 되도 데이터가 없어지지 않는다 <strong>(구현(O))</strong>
 
 
 
@@ -51,8 +52,9 @@ yarn install && yarn start
 <img src="https://user-images.githubusercontent.com/46497281/172038683-40a18eb0-5475-4118-999b-7e9a36688a91.png" width="300px">
 
 ## - 웹
-<img src="https://user-images.githubusercontent.com/46497281/172038680-b59a5367-794c-441c-897a-c32a150f6c33.png" width="500px">
+<img src="https://user-images.githubusercontent.com/46497281/173218047-b607c3e7-8e61-46cb-ae81-a0f969a9b117.png" width="500px">
 
-
+## -모달
+<img src="https://user-images.githubusercontent.com/46497281/173218269-bdccc1b8-8ceb-4896-a0b0-d2afa3ae95cc.png" width="500px">
 
 
