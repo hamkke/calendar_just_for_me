@@ -1,45 +1,59 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react'
+import { useDispatch } from 'react-redux'
+import { editDate } from 'states/userData'
+
 import styles from './modal.module.scss'
 
-interface IQWE {
+interface ItotalDateList {
   id: string
-  date: number
-  currentStatus: string
-}
-interface IWER {
+  todayDate?: string | undefined
+  memo?: string | undefined
+  todayBg?: string | undefined
   year: number
   month: number
   date: number
+  currentStatus: string
 }
 
 type Props = {
   setModalOpen: any
-  currentMonth: number
-  currentYear: number
-  totalDate: IQWE[]
-  clickDate: IWER | undefined
   modalOpen: boolean
+  clickDate?: ItotalDateList | undefined
 }
 
-const Test: React.FC<Props> = ({ setModalOpen, modalOpen, currentMonth, currentYear, totalDate, clickDate }: Props) => {
-  // console.log(setModalOpen)
-  const [nowColor, setNowcolor] = useState('#00ff11')
-  const BG = useRef<HTMLDivElement | null>(null)
+const Test: React.FC<Props> = ({ setModalOpen, modalOpen, clickDate }: Props) => {
+  const dispatch = useDispatch()
+  const [nowColor, setNowcolor] = useState<string | undefined>('#000000')
+  const [memo, setMemo] = useState('')
+  const modalOutside = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
+    setNowcolor(clickDate?.todayBg)
     const handleOutsideClick = (e: any) => {
-      if (modalOpen && !BG.current?.contains(e.target)) setModalOpen(false)
+      if (modalOpen && !modalOutside.current?.contains(e.target)) setModalOpen(false)
     }
 
     document.addEventListener('mousedown', handleOutsideClick)
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
-  }, [BG, modalOpen, setModalOpen])
+  }, [modalOutside, modalOpen, setModalOpen, setNowcolor, clickDate?.todayBg])
+
+  const handleMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    console.log(e.currentTarget.value)
+    setMemo(e.currentTarget.value)
+  }
+  const handleColor = (e: ChangeEvent<HTMLInputElement>) => {
+    setNowcolor(e.currentTarget.value)
+  }
+  const handleSave = () => {
+    dispatch(editDate({ ...clickDate, memo, nowColor }))
+    setModalOpen(false)
+  }
 
   return (
     <div className={styles.modalWrap}>
-      <div className={styles.modalBox} ref={BG}>
+      <div className={styles.modalBox} ref={modalOutside}>
         <h2 className={styles.todayDateTitle}>
           {clickDate?.year}년 {clickDate?.month}월 {clickDate?.date}일
         </h2>
@@ -54,23 +68,17 @@ const Test: React.FC<Props> = ({ setModalOpen, modalOpen, currentMonth, currentY
           </label>
           <div className={styles.colorInputWrap}>
             <h3>오늘의 색:</h3>
-            <input
-              type='color'
-              value={nowColor}
-              onChange={(e) => {
-                setNowcolor(e.target.value)
-              }}
-            />
+            <input type='color' value={nowColor} onChange={handleColor} />
             <p>&quot; {nowColor} &quot;</p>
           </div>
         </div>
 
-        <textarea className={styles.modalMemo} placeholder='메모 메모' />
+        <textarea className={styles.modalMemo} placeholder='메모 메모' value={memo} onChange={handleMemo} />
 
-        <button type='button' onClick={() => setModalOpen(false)} className={styles.closeBtn}>
+        <button type='button' onClick={handleSave} className={styles.closeBtn}>
           X
         </button>
-        <button type='button' className={styles.saveBtn} onClick={() => setModalOpen(false)}>
+        <button type='button' className={styles.saveBtn} onClick={handleSave}>
           저장
         </button>
       </div>

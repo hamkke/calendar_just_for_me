@@ -1,11 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-import { useMount } from 'react-use'
-
 const DATE: Date = new Date()
 const YEAR: number = DATE.getFullYear()
 const MONTH: number = DATE.getMonth() + 1
-interface IQWE {
+interface IsetDateList {
   id: string
   year: number
   month: number
@@ -15,7 +13,7 @@ interface IQWE {
 const GetDay = () => {
   const [currentMonth, setMonth] = useState(MONTH)
   const [currentYear, setYear] = useState(YEAR)
-  const [totalDate, setTotalDate] = useState<IQWE[]>([])
+  const [totalDate, setTotalDate] = useState<IsetDateList[]>([])
   const [currentDayLength, setCurrentDayLength] = useState(0)
   const [pastDayLength, setPastDayLength] = useState<number>(0)
   const changeDate = useCallback(

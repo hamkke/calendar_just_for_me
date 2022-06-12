@@ -1,47 +1,37 @@
 import { useCallback, useState, MouseEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
+import { setDate, getPresentData } from 'states/userData'
 import DATA from 'data.json'
+
 import GetDay from './getDay'
 import PORTAL from 'components/modal/Potal'
 import TEST from 'components/modal/Modal'
 
 import { cx } from 'styles'
 import styles from './calrendar.module.scss'
-import { setDate, getPresentData } from 'states/userData'
-import { useMount } from 'react-use'
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토']
 
-interface IYearMonthDate {
+interface ItotalDateList {
+  id: string
   todayDate?: string | undefined
   memo?: string | undefined
   todayBg?: string | undefined
-  id: string
   year: number
   month: number
   date: number
   currentStatus: string
 }
-interface IOOO {
-  todayDate?: string | undefined
-  memo?: string | undefined
-  todayBg?: string | undefined
-  id: string
-  year: number
-  month: number
-  date: number
-  currentStatus: string
-}
+
 const Calrendar = () => {
-  const { currentMonth, currentYear, totalDate, setMonth, setYear, currentDayLength, pastDayLength } = GetDay()
-  const [modalOpen, setModalOpen] = useState(false)
-  const [clickDate, setClickDate] = useState<IYearMonthDate>()
   const dispatch = useDispatch()
   const getTotalDate = useSelector(getPresentData)
-  console.log(getTotalDate, 'sdfsdfdsf')
-
   const beforeSetupData = DATA.present
-
+  const { currentMonth, currentYear, totalDate, setMonth, setYear } = GetDay()
+  const [modalOpen, setModalOpen] = useState(false)
+  const [clickDate, setClickDate] = useState<ItotalDateList>()
+  // console.log(getTotalDate)
   useEffect(() => {
     const setupTotalDate = totalDate.map((item) => {
       const ccc = beforeSetupData.find((item2) => item2.todayDate === item.id)
@@ -49,6 +39,11 @@ const Calrendar = () => {
     })
     dispatch(setDate(setupTotalDate))
   }, [beforeSetupData, dispatch, totalDate])
+
+  const handleModalOpen = (v: ItotalDateList) => {
+    setClickDate(v)
+    setModalOpen(true)
+  }
 
   const handleMonth = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
@@ -70,12 +65,6 @@ const Calrendar = () => {
     [currentMonth, currentYear, setMonth, setYear]
   )
 
-  // console.log(xxx)
-
-  const handleModalOpen = (v: IYearMonthDate) => {
-    setClickDate(v)
-    setModalOpen(true)
-  }
   return (
     <div className={styles.calrendarWrap}>
       <div className={styles.calrendarNav}>
@@ -99,9 +88,8 @@ const Calrendar = () => {
       </ul>
       <ul className={styles.listWrap}>
         {getTotalDate.map((v) => {
-          console.log(v)
           return (
-            <li className={styles.listItem} key={v.id}>
+            <li className={cx(styles.listItem)} key={v.id} style={{ backgroundColor: v.todayBg }}>
               <button
                 type='button'
                 className={cx(styles.list, styles[v.currentStatus])}
@@ -110,20 +98,14 @@ const Calrendar = () => {
                 }}
                 data-date={v.id}
               >
-                {v.date}ww
+                {v.date}
+                <p>{v.memo}</p>
               </button>
             </li>
           )
         })}
         <PORTAL modalOpen={modalOpen}>
-          <TEST
-            setModalOpen={setModalOpen}
-            modalOpen={modalOpen}
-            totalDate={totalDate}
-            currentMonth={currentMonth}
-            currentYear={currentYear}
-            clickDate={clickDate}
-          />
+          <TEST setModalOpen={setModalOpen} modalOpen={modalOpen} clickDate={clickDate} />
         </PORTAL>
       </ul>
     </div>
