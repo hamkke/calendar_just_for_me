@@ -1,9 +1,9 @@
-import { useAppSelector } from 'hooks/useAppSelector'
+import { useSelector } from 'react-redux'
 import styles from './dateList.module.scss'
 import { getPastData } from 'states/userData'
 
 const DateList = () => {
-  const userData = useAppSelector(getPastData)
+  const userData = useSelector(getPastData)
 
   const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
 

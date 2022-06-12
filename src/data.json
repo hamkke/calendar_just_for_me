@@ -1,7 +1,7 @@
 {
         "past":[
             {
-                "id": "2022-03-07",
+                "id": "2022-05-29",
                 "start" : "2022-03-01",
                 "end" : "2022-03-07",
                 "totalDate":7
@@ -15,15 +15,35 @@
         ],
         "present":[
             {
-                "todayDate" : "2022-05-28",
+                "todayDate" : "2022-6-10",
                 "memo":"안녕하세요",
-                "todayBg":"",
-                "start":true
+                "todayBg":"#38d589"
             },
             {
-                "todayDate" : "2022-05-29",
-                "memo":"반갑습니다",
-                "todayBg":""
+                "todayDate" : "2022-6-11",
+                "memo":"제가",
+                "todayBg":"#38d589"
+            },
+            {
+                "todayDate" : "2022-6-12",
+                "memo":"만든",
+                "todayBg":"#38d589"
+            },
+            {
+                "todayDate" : "2022-6-13",
+                "memo":"달력",
+                "todayBg":"#38d589"
+            },
+            {
+                "todayDate" : "2022-6-14",
+                "memo":"입니다",
+                "todayBg":"#38d589"
+            }
+            ,
+            {
+                "todayDate" : "2022-6-28",
+                "memo":"💜",
+                "todayBg":"#38d589"
             }
         ]
 }
