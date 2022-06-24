@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 const DATE: Date = new Date()
 const YEAR: number = DATE.getFullYear()
 const MONTH: number = DATE.getMonth() + 1
+
 interface IsetDateList {
   id: string
   year: number
@@ -10,6 +11,7 @@ interface IsetDateList {
   date: number
   currentStatus: string
 }
+
 const GetDay = () => {
   const [currentMonth, setMonth] = useState(MONTH)
   const [currentYear, setYear] = useState(YEAR)

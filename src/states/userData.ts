@@ -5,16 +5,6 @@ import { axios } from 'hooks/worker'
 import DATA from 'data.json'
 import GetDay from 'components/calrendar/getDay'
 
-interface IOOO {
-  todayDate?: string | undefined
-  memo?: string | undefined
-  todayBg?: string | undefined
-  id: string
-  year: number
-  month: number
-  date: number
-  currentStatus: string
-}
 const INITIAL_STATE = {
   past: [
     {
@@ -40,6 +30,8 @@ const INITIAL_STATE = {
       month: 0,
       date: 0,
       currentStatus: '',
+      startDate: false,
+      endDate: false,
     },
   ],
 }
@@ -54,8 +46,13 @@ const systemSlice = createSlice({
     editDate: (state, action) => {
       state.presnt.map((a, b) => {
         if (a.id === action.payload.id) {
-          // console.log(current(state.presnt[12]))
-          state.presnt[b] = { ...a, memo: action.payload.memo, todayBg: action.payload.nowColor }
+          state.presnt[b] = {
+            ...a,
+            memo: action.payload.memo,
+            todayBg: action.payload.nowColor,
+            startDate: action.payload.start,
+            endDate: action.payload.end,
+          }
 
           return { ...a, memo: action.payload.memo }
         }

@@ -8,20 +8,22 @@ import GetDay from './getDay'
 import PORTAL from 'components/modal/Potal'
 import TEST from 'components/modal/Modal'
 
-import { cx } from 'styles'
+import cx from 'classnames'
 import styles from './calrendar.module.scss'
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토']
 
 interface ItotalDateList {
   id: string
-  todayDate?: string | undefined
-  memo?: string | undefined
-  todayBg?: string | undefined
+  todayDate: string
+  memo: string
+  todayBg: string
   year: number
   month: number
   date: number
   currentStatus: string
+  startDate: boolean
+  endDate: boolean
 }
 
 const Calrendar = () => {
@@ -30,7 +32,7 @@ const Calrendar = () => {
   const beforeSetupData = DATA.present
   const { currentMonth, currentYear, totalDate, setMonth, setYear } = GetDay()
   const [modalOpen, setModalOpen] = useState(false)
-  const [clickDate, setClickDate] = useState<ItotalDateList>()
+  const [clickDate, setClickDate] = useState<ItotalDateList | undefined>()
   // console.log(getTotalDate)
   useEffect(() => {
     const setupTotalDate = totalDate.map((item) => {
@@ -41,6 +43,7 @@ const Calrendar = () => {
   }, [beforeSetupData, dispatch, totalDate])
 
   const handleModalOpen = (v: ItotalDateList) => {
+    // console.log(v)
     setClickDate(v)
     setModalOpen(true)
   }
@@ -64,7 +67,11 @@ const Calrendar = () => {
     },
     [currentMonth, currentYear, setMonth, setYear]
   )
-
+  const qwe = (v: ItotalDateList) => {
+    if (v.startDate === true) return '💔'
+    if (v.endDate === true) return '❤️'
+    return ''
+  }
   return (
     <div className={styles.calrendarWrap}>
       <div className={styles.calrendarNav}>
@@ -87,9 +94,9 @@ const Calrendar = () => {
         })}
       </ul>
       <ul className={styles.listWrap}>
-        {getTotalDate.map((v) => {
+        {getTotalDate.map((v: ItotalDateList) => {
           return (
-            <li className={cx(styles.listItem)} key={v.id} style={{ backgroundColor: v.todayBg }}>
+            <li className={styles.listItem} key={v.id} style={{ backgroundColor: v.todayBg }}>
               <button
                 type='button'
                 className={cx(styles.list, styles[v.currentStatus])}
@@ -99,6 +106,7 @@ const Calrendar = () => {
                 data-date={v.id}
               >
                 {v.date}
+                <p className={styles.startendTxt}>{qwe(v)}</p>
                 <p>{v.memo}</p>
               </button>
             </li>
