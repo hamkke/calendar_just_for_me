@@ -6,7 +6,7 @@ import DATA from 'data.json'
 
 import GetDay from './getDay'
 import PORTAL from 'components/modal/Potal'
-import TEST from 'components/modal/Modal'
+import Modal from 'components/modal/Modal'
 
 import { ItotalDateList } from 'types/dayList'
 
@@ -100,7 +100,7 @@ const Calrendar = () => {
           )
         })}
         <PORTAL modalOpen={modalOpen}>
-          <TEST setModalOpen={setModalOpen} modalOpen={modalOpen} clickDate={clickDate} />
+          <Modal setModalOpen={setModalOpen} modalOpen={modalOpen} clickDate={clickDate} />
         </PORTAL>
       </ul>
     </div>
