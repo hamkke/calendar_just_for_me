@@ -1,23 +1,11 @@
-import { click } from '@testing-library/user-event/dist/click'
-import { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react'
+import { useState, useRef, useEffect, ChangeEvent } from 'react'
 import { useDispatch } from 'react-redux'
 import { editDate } from 'states/userData'
+
+import { ItotalDateList } from 'types/dayList'
+
 import cx from 'classnames'
-
 import styles from './modal.module.scss'
-
-interface ItotalDateList {
-  id: string
-  todayDate: string
-  memo: string
-  todayBg: string
-  year: number
-  month: number
-  date: number
-  currentStatus: string
-  startDate: boolean
-  endDate: boolean
-}
 
 interface Props {
   setModalOpen: any
@@ -79,7 +67,6 @@ const Test = ({ setModalOpen, modalOpen, clickDate }: Props) => {
               onChange={handleStartEnd}
               className={cx({ [styles.checked]: start })}
               checked={start}
-              // defalutchecked
             />
           </label>
           <label htmlFor='end'>

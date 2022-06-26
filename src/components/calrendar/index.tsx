@@ -8,23 +8,12 @@ import GetDay from './getDay'
 import PORTAL from 'components/modal/Potal'
 import TEST from 'components/modal/Modal'
 
+import { ItotalDateList } from 'types/dayList'
+
 import cx from 'classnames'
 import styles from './calrendar.module.scss'
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토']
-
-interface ItotalDateList {
-  id: string
-  todayDate: string
-  memo: string
-  todayBg: string
-  year: number
-  month: number
-  date: number
-  currentStatus: string
-  startDate: boolean
-  endDate: boolean
-}
 
 const Calrendar = () => {
   const dispatch = useDispatch()
@@ -33,7 +22,6 @@ const Calrendar = () => {
   const { currentMonth, currentYear, totalDate, setMonth, setYear } = GetDay()
   const [modalOpen, setModalOpen] = useState(false)
   const [clickDate, setClickDate] = useState<ItotalDateList | undefined>()
-  // console.log(getTotalDate)
   useEffect(() => {
     const setupTotalDate = totalDate.map((item) => {
       const ccc = beforeSetupData.find((item2) => item2.todayDate === item.id)
@@ -43,7 +31,6 @@ const Calrendar = () => {
   }, [beforeSetupData, dispatch, totalDate])
 
   const handleModalOpen = (v: ItotalDateList) => {
-    // console.log(v)
     setClickDate(v)
     setModalOpen(true)
   }
@@ -68,8 +55,8 @@ const Calrendar = () => {
     [currentMonth, currentYear, setMonth, setYear]
   )
   const qwe = (v: ItotalDateList) => {
-    if (v.startDate === true) return '💔'
-    if (v.endDate === true) return '❤️'
+    if (v.startDate === true) return '👎🏻'
+    if (v.endDate === true) return '👍🏻'
     return ''
   }
   return (

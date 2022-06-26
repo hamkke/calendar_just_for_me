@@ -1,16 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
+import { IsetDateList } from 'types/dayList'
+
 const DATE: Date = new Date()
 const YEAR: number = DATE.getFullYear()
 const MONTH: number = DATE.getMonth() + 1
-
-interface IsetDateList {
-  id: string
-  year: number
-  month: number
-  date: number
-  currentStatus: string
-}
 
 const GetDay = () => {
   const [currentMonth, setMonth] = useState(MONTH)
@@ -18,22 +12,27 @@ const GetDay = () => {
   const [totalDate, setTotalDate] = useState<IsetDateList[]>([])
   const [currentDayLength, setCurrentDayLength] = useState(0)
   const [pastDayLength, setPastDayLength] = useState<number>(0)
+
   const changeDate = useCallback(
     (month: number) => {
       // 이전 달의 요일과 날짜
-      const previousLastDay = new Date(currentYear, month - 1, 0).getDay()
-      const previousLastDate = new Date(currentYear, month - 1, 0).getDate()
+      const setPrevMonth = new Date(currentYear, month - 1, 0)
+      const previousLastDay = setPrevMonth.getDay()
+      const previousLastDate = setPrevMonth.getDate()
       // 현재 달의 요일과 날짜
-      const currentLastDay = new Date(currentYear, month, 0).getDay()
-      const currentLastDate = new Date(currentYear, month, 0).getDate()
+      const setCurrentMonth = new Date(currentYear, month, 0)
+      const currentLastDay = setCurrentMonth.getDay()
+      const currentLastDate = setCurrentMonth.getDate()
 
       const pastDateList = [...Array(previousLastDay + 1)]
-        .reduce((a, b, c) => a.concat(previousLastDate - c), [])
-        .sort((a: number, b: number) => a - b)
+        .reduce((a, _, c) => a.concat(previousLastDate - c), [])
+        // .sort((a: number, b: number) => a - b)
+        // 조금 더 간편하게 배열 뒤집는 방법이 있넹
+        .reverse()
 
-      const nextDateList = [...Array(6 - currentLastDay)].reduce((a, _b, c) => a.concat(c + 1), [])
+      const nextDateList = [...Array(6 - currentLastDay)].reduce((a, _, c) => a.concat(c + 1), [])
 
-      const currentDateList = [...Array(currentLastDate)].reduce((a, _b, c) => a.concat(c + 1), [])
+      const currentDateList = [...Array(currentLastDate)].reduce((a, _, c) => a.concat(c + 1), [])
 
       setPastDayLength(pastDateList.length)
       setCurrentDayLength(currentDateList.length)
@@ -91,7 +90,7 @@ const GetDay = () => {
 
   useEffect(() => {
     setTotalDate(changeDate(currentMonth))
-  }, [])
+  }, [changeDate, currentMonth])
 
   useEffect(() => {
     setTotalDate(changeDate(currentMonth))
