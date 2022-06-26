@@ -2,17 +2,8 @@
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/flexbox';
 
-.werwer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(221, 6, 6, 80%);
-}
-
 .modalWrap {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
@@ -103,7 +94,6 @@
         width: 100px;
         margin: 0 10px;
         border: 3px solid colors.$GRAY2;
-        // -webkit-appearance: none;
       }
 
       & input[type='color']::-webkit-color-swatch-wrapper {

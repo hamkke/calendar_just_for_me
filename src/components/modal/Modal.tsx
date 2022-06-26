@@ -6,6 +6,7 @@ import { ItotalDateList } from 'types/dayList'
 
 import cx from 'classnames'
 import styles from './modal.module.scss'
+import { click } from '@testing-library/user-event/dist/click'
 
 interface Props {
   setModalOpen: any
@@ -13,7 +14,7 @@ interface Props {
   clickDate: ItotalDateList | undefined
 }
 
-const Test = ({ setModalOpen, modalOpen, clickDate }: Props) => {
+const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   const dispatch = useDispatch()
   const [nowColor, setNowcolor] = useState(clickDate?.todayBg || '#ffffff')
   const [memo, setMemo] = useState(clickDate?.memo || '')
@@ -47,6 +48,8 @@ const Test = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   }
   const handleSave = () => {
     dispatch(editDate({ ...clickDate, memo, nowColor, start, end }))
+    console.log(clickDate)
+    if (clickDate?.endDate) console.log(123)
     setModalOpen(false)
   }
 
@@ -100,4 +103,4 @@ const Test = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   )
 }
 
-export default Test
+export default Modal
