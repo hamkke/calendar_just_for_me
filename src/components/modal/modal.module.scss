@@ -67,7 +67,7 @@
         width: 30px;
         height: 30px;
         margin-left: 10px;
-        cursor: pointer;
+        // cursor: pointer;
         background-color: colors.$WHITE;
         border: 3px solid colors.$GRAY2;
 
@@ -79,6 +79,10 @@
           height: 24px;
           content: '';
           background-color: colors.$MAIN;
+        }
+
+        &:disabled {
+          cursor: not-allowed;
         }
       }
     }

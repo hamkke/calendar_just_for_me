@@ -9,7 +9,7 @@ const DateList = () => {
 
   return (
     <div className={styles.dataListWrap}>
-      <h2>평균주기: {average}일</h2>
+      <h2>평균 생리일: {average}일</h2>
       <ul className={styles.listWrap}>
         {userData.map((a) => {
           return (

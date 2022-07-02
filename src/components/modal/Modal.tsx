@@ -1,12 +1,13 @@
-import { useState, useRef, useEffect, ChangeEvent } from 'react'
-import { useDispatch } from 'react-redux'
-import { editDate } from 'states/userData'
+import { useState, useRef, useEffect, ChangeEvent, useCallback } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { editDate, getStartTimeStemp, setStartTimeStemp } from 'states/userData'
 
 import { ItotalDateList } from 'types/dayList'
 
 import cx from 'classnames'
 import styles from './modal.module.scss'
-import { click } from '@testing-library/user-event/dist/click'
+
+import dayjs from 'dayjs'
 
 interface Props {
   setModalOpen: any
@@ -16,11 +17,36 @@ interface Props {
 
 const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   const dispatch = useDispatch()
+  const TIMESTEMP = useSelector(getStartTimeStemp)
+  const modalOutside = useRef<HTMLDivElement>(null)
   const [nowColor, setNowcolor] = useState(clickDate?.todayBg || '#ffffff')
   const [memo, setMemo] = useState(clickDate?.memo || '')
   const [start, setStart] = useState(clickDate?.startDate || false)
   const [end, setEnd] = useState(clickDate?.endDate || false)
-  const modalOutside = useRef<HTMLDivElement | null>(null)
+
+  const [isOk, setIsOk] = useState(false)
+  const rrrr = dayjs(clickDate?.id).valueOf()
+
+  const settingDate = useCallback(
+    (item: string | undefined) => {
+      setStart(true)
+      const expectedEndDate = dayjs(item).add(6, 'day').valueOf()
+      const beforeStartDate = dayjs(item).subtract(1, 'day').valueOf()
+      dispatch(setStartTimeStemp({ expectedEndDate, beforeStartDate, item }))
+    },
+    [dispatch]
+  )
+
+  useEffect(() => {
+    if (clickDate?.startDate) settingDate(clickDate?.id)
+  }, [clickDate?.id, clickDate?.startDate, settingDate])
+
+  useEffect(() => {
+    const { yesterDate, afteRaverageDate } = TIMESTEMP
+    if (yesterDate <= rrrr && rrrr < afteRaverageDate) {
+      setIsOk(true)
+    }
+  }, [TIMESTEMP, clickDate?.id, rrrr])
 
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
@@ -41,15 +67,13 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   }
 
   const handleStartEnd = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.checked)
     const target = e.currentTarget.value
-    if (target === '시작일') setStart((prev) => !prev)
+    if (target === '시작일') settingDate(clickDate?.id)
     if (target === '종료일') setEnd((prev) => !prev)
   }
+
   const handleSave = () => {
     dispatch(editDate({ ...clickDate, memo, nowColor, start, end }))
-    console.log(clickDate)
-    if (clickDate?.endDate) console.log(123)
     setModalOpen(false)
   }
 
@@ -70,6 +94,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
               onChange={handleStartEnd}
               className={cx({ [styles.checked]: start })}
               checked={start}
+              disabled={isOk}
             />
           </label>
           <label htmlFor='end'>

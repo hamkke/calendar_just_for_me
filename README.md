@@ -18,6 +18,37 @@ git clone https://github.com/hamkke/last_assignment.git
 ```
 yarn install && yarn start
 ``` 
+# 📁 폴더 구조
+```sh
+src
+ ┣ assets
+ ┃ ┗ svgs
+ ┣ components
+ ┃ ┣ calrendar
+ ┃ ┃ ┣ calrendar.module.scss
+ ┃ ┃ ┣ getDay.tsx
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ dateList
+ ┃ ┃ ┣ dateList.module.scss
+ ┃ ┃ ┗ index.tsx
+ ┃ ┣ layout
+ ┃ ┃ ┣ index.tsx
+ ┃ ┃ ┗ layout.module.scss
+ ┃ ┣ modal
+ ┃ ┃ ┣ Modal.tsx
+ ┃ ┃ ┣ Potal.tsx
+ ┃ ┃ ┗ modal.module.scss
+ ┃ ┗ .DS_Store
+ ┣ routes
+ ┃ ┗ index.tsx
+ ┣ states
+ ┃ ┣ index.ts
+ ┃ ┗ userData.ts
+ ┣ types
+ ┃ ┗ dayList.d.ts
+ ┗ utils
+   ┗ axios.ts
+ ```
 
 # 🎨 디자인
 ![메인화면](https://user-images.githubusercontent.com/46497281/172038398-eda0ad1c-a512-4255-9513-f66f7b30561c.png)
