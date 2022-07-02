@@ -1,27 +1,24 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { RootState } from '.'
-import { axios } from 'hooks/worker'
-// import store from 'store'
-import DATA from 'data.json'
-import GetDay from 'components/calrendar/getDay'
 
 const INITIAL_STATE = {
   past: [
     {
-      id: '2022-05-29',
-      start: '2022-03-01',
-      end: '2022-03-07',
+      id: '2022-3-7',
+      start: '2022-3-1',
+      end: '2022-3-7',
       totalDate: 7,
     },
     {
-      id: '2022-04-17',
-      start: '2022-04-12',
-      end: '2022-04-17',
+      id: '2022-4-17',
+      start: '2022-4-12',
+      end: '2022-4-17',
       totalDate: 6,
     },
   ],
   presnt: [
     {
+      startDate: false,
       todayDate: '',
       memo: '',
       todayBg: '',
@@ -30,10 +27,14 @@ const INITIAL_STATE = {
       month: 0,
       date: 0,
       currentStatus: '',
-      startDate: false,
       endDate: false,
     },
   ],
+  timeStemp: {
+    standardDate: '',
+    yesterDate: 0,
+    afteRaverageDate: 0,
+  },
 }
 
 const systemSlice = createSlice({
@@ -59,12 +60,18 @@ const systemSlice = createSlice({
         return { ...a }
       })
     },
+    setStartTimeStemp: (state, action) => {
+      state.timeStemp.standardDate = action.payload.item
+      state.timeStemp.yesterDate = action.payload.beforeStartDate
+      state.timeStemp.afteRaverageDate = action.payload.expectedEndDate
+    },
   },
 })
 
-export const { setDate, editDate } = systemSlice.actions
+export const { setDate, editDate, setStartTimeStemp } = systemSlice.actions
 
 export default systemSlice.reducer
 
 export const getPastData = (state: RootState) => state.userData.past
 export const getPresentData = (state: RootState) => state.userData.presnt
+export const getStartTimeStemp = (state: RootState) => state.userData.timeStemp

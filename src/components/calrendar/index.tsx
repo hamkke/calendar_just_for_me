@@ -1,7 +1,8 @@
 import { useCallback, useState, MouseEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import dayjs from 'dayjs'
 
-import { setDate, getPresentData } from 'states/userData'
+import { setDate, getPresentData, setStartTimeStemp } from 'states/userData'
 import DATA from 'data.json'
 
 import GetDay from './getDay'
@@ -22,6 +23,20 @@ const Calrendar = () => {
   const { currentMonth, currentYear, totalDate, setMonth, setYear } = GetDay()
   const [modalOpen, setModalOpen] = useState(false)
   const [clickDate, setClickDate] = useState<ItotalDateList | undefined>()
+
+  useEffect(() => {
+    const qwe = getTotalDate.filter((a) => {
+      if (!a.startDate) return false
+      return a.id
+    })
+
+    // TODO: 최대 두개의 값이 들어갔을 땐 어떻게 처리해야 하는가? 다시 map을 돌려야 하나? 흐으므으으으으으으으으으으으음
+    const item = qwe[0]?.id
+    const expectedEndDate = dayjs(item).add(6, 'day').valueOf()
+    const beforeStartDate = dayjs(item).subtract(1, 'day').valueOf()
+    dispatch(setStartTimeStemp({ expectedEndDate, beforeStartDate, item }))
+  }, [dispatch, getTotalDate])
+
   useEffect(() => {
     const setupTotalDate = totalDate.map((item) => {
       const ccc = beforeSetupData.find((item2) => item2.todayDate === item.id)
