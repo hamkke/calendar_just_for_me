@@ -90,10 +90,6 @@ const GetDay = () => {
 
   useEffect(() => {
     setTotalDate(changeDate(currentMonth))
-  }, [changeDate, currentMonth])
-
-  useEffect(() => {
-    setTotalDate(changeDate(currentMonth))
   }, [changeDate, currentMonth, currentYear])
 
   return { currentMonth, currentYear, totalDate, setMonth, setYear, currentDayLength, pastDayLength }
