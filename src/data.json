@@ -40,6 +40,17 @@
             "memo":"입니다",
             "todayBg":"#38d589",
             "endDate":true
+        },
+        {
+            "todayDate" : "2022-7-1",
+            "memo":"시작",
+            "todayBg":"#38d589",
+            "startDate":true
+        },
+        {
+            "todayDate" : "2022-7-2",
+            "memo":"잉",
+            "todayBg":"#38d589"
         }
     ]
 }
