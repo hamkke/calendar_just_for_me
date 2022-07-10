@@ -67,23 +67,7 @@ const systemSlice = createSlice({
     setDate: (state, action) => {
       state.currentTotalList = action.payload
     },
-    editDate: (state, action) => {
-      const yyy = state.statusList.map((item, idx) => {
-        // console.log({ ...item }, action.payload.id)
-        if (item.todayDate === action.payload.id) {
-          return {
-            ...item,
-            memo: action.payload.memo,
-            todayBg: action.payload.nowColor,
-            startDate: action.payload.start,
-            endDate: action.payload.end,
-          }
-        }
-        return { ...item }
-      })
-      console.log(yyy)
-      state.statusList = yyy
-    },
+
     setStartTimeStemp: (state, action) => {
       state.timeStemp.standardDate = action.payload.item
       state.timeStemp.yesterDay = action.payload.beforeStartDate
@@ -100,7 +84,7 @@ const systemSlice = createSlice({
   },
 })
 
-export const { setDate, editDate, setStartTimeStemp } = systemSlice.actions
+export const { setDate, setStartTimeStemp } = systemSlice.actions
 
 export default systemSlice.reducer
 
