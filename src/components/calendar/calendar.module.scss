@@ -56,7 +56,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-around;
-  min-width: 392px;
+  min-width: 320px;
 
   & li {
     flex: 1 1 14%;
@@ -78,7 +78,7 @@
 .listWrap {
   display: flex;
   flex-wrap: wrap;
-  min-width: 392px;
+  min-width: 320px;
 }
 
 .listItem {
@@ -113,7 +113,7 @@
       font-size: 12px;
       font-weight: normal;
       text-align: start;
-      word-break: keep-all;
+      word-break: break-word;
 
       @include responsive.after(MD) {
         font-size: 14px;
