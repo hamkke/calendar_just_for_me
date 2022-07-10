@@ -1,46 +1,25 @@
 {
-    "past":[
+    "recapList":[
         {
-            "id": "2022-03-07",
-            "start" : "2022-03-01",
-            "end" : "2022-03-07",
+            "id": "2022-3-7",
+            "start" : "2022-3-1",
+            "end" : "2022-3-7",
             "totalDate":7
         },
         {
-            "id": "2022-04-17",
-            "start" : "2022-04-12",
-            "end" : "2022-04-17",
+            "id": "2022-4-17",
+            "start" : "2022-4-12",
+            "end" : "2022-4-17",
+            "totalDate":6
+        },
+        {
+            "id": "2022-7-6",
+            "start" : "2022-7-1",
+            "end" : "2022-7-6",
             "totalDate":6
         }
     ],
-    "present":[
-        {
-            "todayDate" : "2022-6-10",
-            "memo":"안녕하세요",
-            "todayBg":"#38d589",
-            "startDate":true
-        },
-        {
-            "todayDate" : "2022-6-11",
-            "memo":"제가",
-            "todayBg":"#38d589"
-        },
-        {
-            "todayDate" : "2022-6-12",
-            "memo":"만든",
-            "todayBg":"#38d589"
-        },
-        {
-            "todayDate" : "2022-6-13",
-            "memo":"달력",
-            "todayBg":"#38d589"
-        },
-        {
-            "todayDate" : "2022-6-14",
-            "memo":"입니다",
-            "todayBg":"#38d589",
-            "endDate":true
-        },
+    "statusList":[
         {
             "todayDate" : "2022-7-1",
             "memo":"시작",
@@ -50,6 +29,26 @@
         {
             "todayDate" : "2022-7-2",
             "memo":"잉",
+            "todayBg":"#38d589"
+        },
+        {
+            "todayDate" : "2022-7-3",
+            "memo":"앙",
+            "todayBg":"#38d589"
+        },
+        {
+            "todayDate" : "2022-7-4",
+            "memo":"후후후후",
+            "todayBg":"#38d589"
+        },
+        {
+            "todayDate" : "2022-7-5",
+            "memo":"후후후후",
+            "todayBg":"#38d589"
+        },
+        {
+            "todayDate" : "2022-7-6",
+            "memo":"오늘 예방접종 했음",
             "todayBg":"#38d589"
         }
     ]
