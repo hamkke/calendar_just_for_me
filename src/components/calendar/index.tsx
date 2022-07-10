@@ -2,51 +2,50 @@ import { useCallback, useState, MouseEvent, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 
-import { setDate, getPresentData, setStartTimeStemp } from 'states/userData'
-import DATA from 'data.json'
+import { setDate, getStatusData, setStartTimeStemp, getCurrentTotalData } from 'states/userData'
 
 import GetDay from './getDay'
-import PORTAL from 'components/modal/Potal'
+import Portal from 'components/modal/Potal'
 import Modal from 'components/modal/Modal'
 
 import { ItotalDateList } from 'types/dayList'
 
 import cx from 'classnames'
-import styles from './calrendar.module.scss'
+import styles from './calendar.module.scss'
 
 const DAY = ['일', '월', '화', '수', '목', '금', '토']
 
-const Calrendar = () => {
-  const dispatch = useDispatch()
-  const getTotalDate = useSelector(getPresentData)
-  const beforeSetupData = DATA.present
+const Calendar = () => {
   const { currentMonth, currentYear, totalDate, setMonth, setYear } = GetDay()
+  const dispatch = useDispatch()
+  const getStatusDate = useSelector(getStatusData)
+  const completeDate = useSelector(getCurrentTotalData)
   const [modalOpen, setModalOpen] = useState(false)
-  const [clickDate, setClickDate] = useState<ItotalDateList | undefined>()
+  const [clickDate, setClickDate] = useState<ItotalDateList>()
 
   useEffect(() => {
-    const qwe = getTotalDate.filter((a) => {
+    const qwe = completeDate.filter((a) => {
       if (!a.startDate) return false
       return a.id
     })
-
-    // TODO: 최대 두개의 값이 들어갔을 땐 어떻게 처리해야 하는가? 다시 map을 돌려야 하나? 흐으므으으으으으으으으으으으음
-    const item = qwe[0]?.id
+    // 최대 두개의 값이 들어갔을 땐 어떻게 처리해야 하는가? 다시 map을 돌려야 하나? 흐으므으으으으으으으으으으으음
+    // qwe[0]?.id 에서 qwe[qwe.length - 1]?.id로 바꾸면 된다
+    const item = qwe[qwe.length - 1]?.id
     const expectedEndDate = dayjs(item).add(6, 'day').valueOf()
     const beforeStartDate = dayjs(item).subtract(1, 'day').valueOf()
     dispatch(setStartTimeStemp({ expectedEndDate, beforeStartDate, item }))
-  }, [dispatch, getTotalDate])
+  }, [dispatch, completeDate])
 
   useEffect(() => {
     const setupTotalDate = totalDate.map((item) => {
-      const ccc = beforeSetupData.find((item2) => item2.todayDate === item.id)
+      const ccc = getStatusDate.find((item2) => item2.todayDate === item.id)
       return { ...item, ...ccc }
     })
     dispatch(setDate(setupTotalDate))
-  }, [beforeSetupData, dispatch, totalDate])
+  }, [dispatch, getStatusDate, totalDate])
 
-  const handleModalOpen = (v: ItotalDateList) => {
-    setClickDate(v)
+  const handleModalOpen = (item: ItotalDateList) => {
+    setClickDate(item)
     setModalOpen(true)
   }
 
@@ -69,14 +68,14 @@ const Calrendar = () => {
     },
     [currentMonth, currentYear, setMonth, setYear]
   )
-  const qwe = (v: ItotalDateList) => {
-    if (v.startDate === true) return '👎🏻'
-    if (v.endDate === true) return '👍🏻'
+  const handleEmojiMark = (item: ItotalDateList) => {
+    if (item.startDate === true) return '(꒪⌓꒪)'
+    if (item.endDate === true) return '( ᐛ )'
     return ''
   }
   return (
-    <div className={styles.calrendarWrap}>
-      <div className={styles.calrendarNav}>
+    <div className={styles.calendarWrap}>
+      <div className={styles.calendarNav}>
         <div className={styles.btnWrap}>
           <button type='button' onClick={handleMonth} value='past'>
             이전 달
@@ -90,36 +89,40 @@ const Calrendar = () => {
         </h2>
       </div>
       <ul className={styles.dayListWrap}>
-        {DAY.map((a, b) => {
-          const key = `DAY-list${b}`
-          return <li key={key}>{a}</li>
+        {DAY.map((item, idx) => {
+          const key = `DAY-LIST-${idx}`
+          return <li key={key}>{item}</li>
         })}
       </ul>
       <ul className={styles.listWrap}>
-        {getTotalDate.map((v: ItotalDateList) => {
+        {completeDate.map((item: ItotalDateList) => {
           return (
-            <li className={styles.listItem} key={v.id} style={{ backgroundColor: v.todayBg }}>
+            <li className={styles.listItem} key={item.id} style={{ backgroundColor: item.todayBg }}>
               <button
                 type='button'
-                className={cx(styles.list, styles[v.currentStatus])}
+                className={cx(styles.list, styles[item.currentStatus])}
                 onClick={() => {
-                  handleModalOpen(v)
+                  handleModalOpen(item)
                 }}
-                data-date={v.id}
+                data-date={item.id}
               >
-                {v.date}
-                <p className={styles.startendTxt}>{qwe(v)}</p>
-                <p>{v.memo}</p>
+                {item.date}
+                <p className={styles.startendTxt}>{handleEmojiMark(item)}</p>
+                <p>{item.memo}</p>
               </button>
             </li>
           )
         })}
-        <PORTAL modalOpen={modalOpen}>
-          <Modal setModalOpen={setModalOpen} modalOpen={modalOpen} clickDate={clickDate} />
-        </PORTAL>
+        {clickDate ? (
+          <Portal modalOpen={modalOpen}>
+            <Modal setModalOpen={setModalOpen} modalOpen={modalOpen} clickDate={clickDate} />
+          </Portal>
+        ) : (
+          <div />
+        )}
       </ul>
     </div>
   )
 }
 
-export default Calrendar
+export default Calendar

@@ -18,3 +18,9 @@ export interface IsetDateList {
   date: number
   currentStatus: string
 }
+
+export interface Props {
+  setModalOpen: any
+  modalOpen: boolean
+  clickDate: ItotalDateList
+}

@@ -1,24 +1,21 @@
 import DateList from 'components/dateList'
-import Calrendar from 'components/calrendar'
-// import GetDay from 'components/calrendar/getDay'
+import Calendar from 'components/calendar'
 
 import styles from './layout.module.scss'
 
 const Layout = () => {
-  // const { currentMonth, currentYear, totalDate, setMonth, setYear, currentDayLength, pastDayLength } = GetDay()
-
   return (
     <div className={styles.wrap}>
       <div className={styles.layout}>
         <header className={styles.header}>
-          <h1>🦖 내가 만든 달력 🦖</h1>
+          <h1>🦖 나만을 위한 달력 🦖</h1>
         </header>
         <main className={styles.main}>
-          <Calrendar />
+          <Calendar />
           <DateList />
         </main>
         <footer className={styles.footer} role='contentinfo'>
-          <h2>이거 내가 만듦</h2>
+          <h2>202206</h2>
         </footer>
       </div>
     </div>
