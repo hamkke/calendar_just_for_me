@@ -1,11 +1,18 @@
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import styles from './dateList.module.scss'
-import { getPastData } from 'states/userData'
+import { getRecapData } from 'states/userData'
 
 const DateList = () => {
-  const userData = useSelector(getPastData)
+  const userData = useSelector(getRecapData)
+  // 예전 코드
+  // 이렇게 하면 값이 더해지기도 전에 나누기가 되서 값이 이상하게 나왔던 거임
+  // const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
+  const average = Math.floor(userData.reduce((a, b) => a + b.totalDate, 0) / userData.length)
 
-  const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
+  // useEffect(() => {
+  //   dispatch(setAverage(DATA.past))
+  // }, [dispatch])
 
   return (
     <div className={styles.dataListWrap}>
@@ -14,8 +21,10 @@ const DateList = () => {
         {userData.map((a) => {
           return (
             <li key={a.id} className={styles.listItem}>
-              {a.start} - {a.end}
-              <p>( {a.totalDate} )일</p>
+              {a.start}
+              <strong>&nbsp; ---&gt; &nbsp;</strong>
+              {a.end}
+              <p>&nbsp;= &nbsp;{a.totalDate}일</p>
             </li>
           )
         })}

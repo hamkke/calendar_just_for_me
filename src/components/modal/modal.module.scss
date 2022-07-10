@@ -22,6 +22,9 @@
     min-width: 320px;
     padding: 40px 30px 50px;
     background-color: #ffffff;
+    @include responsive.after(SD) {
+      width: 70vw;
+    }
     @include responsive.after(MD) {
       width: 50vw;
     }
@@ -46,30 +49,29 @@
       font-size: 16px;
       @include responsive.after(ML) {
         flex-direction: row;
-        justify-content: center;
+        @include flexbox.flexbox(around, center);
       }
 
       & label {
+        margin-top: 10px;
         @include flexbox.flexbox(center, center);
-        margin: 0 0 15px;
         cursor: pointer;
         @include responsive.after(ML) {
-          margin-right: 15px;
+          margin-top: 0;
         }
+      }
 
-        &:last-child {
-          margin-left: 10px;
-        }
+      & input {
+        margin-left: 10px;
+        cursor: pointer;
+        border: 3px solid colors.$GRAY2;
       }
 
       & input[type='checkbox'] {
         position: relative;
         width: 30px;
         height: 30px;
-        margin-left: 10px;
-        // cursor: pointer;
         background-color: colors.$WHITE;
-        border: 3px solid colors.$GRAY2;
 
         &.checked:checked::after {
           position: absolute;
@@ -85,19 +87,9 @@
           cursor: not-allowed;
         }
       }
-    }
-
-    .colorInputWrap {
-      @include flexbox.flexbox(center, center);
-
-      & h3 {
-        font-size: 16px;
-      }
 
       & input[type='color'] {
         width: 100px;
-        margin: 0 10px;
-        border: 3px solid colors.$GRAY2;
       }
 
       & input[type='color']::-webkit-color-swatch-wrapper {
@@ -106,14 +98,45 @@
 
       & input[type='color']::-webkit-color-swatch {
         border: none;
-        border-radius: px;
+        border-radius: 0;
       }
 
-      & p {
+      & input[type='text'] {
         width: 80px;
-        font-size: 15px;
+        padding: 2px 5px;
       }
     }
+
+    // .colorInputWrap {
+    //   display: flex;
+    //   flex-direction: column;
+    //   align-items: flex-start;
+    //   @include responsive.after(ML) {
+    //     @include flexbox.flexbox(center, center);
+    //     flex-direction: row;
+    //   }
+
+    //   & input[type='color'] {
+    //     width: 100px;
+    //     margin: 0 10px;
+    //     border: 3px solid colors.$GRAY2;
+    //   }
+
+    //   & input[type='color']::-webkit-color-swatch-wrapper {
+    //     padding: 0;
+    //   }
+
+    //   & input[type='color']::-webkit-color-swatch {
+    //     border: none;
+    //     border-radius: 0;
+    //   }
+
+    //   & input[type='text'] {
+    //     width: 80px;
+    //     margin-left: 10px;
+    //     border: 3px solid colors.$GRAY2;
+    //   }
+    // }
 
     .modalMemo {
       width: 100%;

@@ -33,12 +33,16 @@
         position: absolute;
         top: 0;
         left: 0;
-        content: '⚡️';
+        content: '🔫';
       }
 
       p {
-        margin-left: 5px;
+        margin-left: 10px;
         font-size: 22px;
+        font-weight: bold;
+      }
+
+      strong {
         font-weight: bold;
       }
     }
