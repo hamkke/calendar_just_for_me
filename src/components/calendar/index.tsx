@@ -73,6 +73,10 @@ const Calendar = () => {
     if (item.endDate === true) return '( ᐛ )'
     return ''
   }
+  const isToday = (item: string) => {
+    if (item === dayjs().format('YYYY-M-D')) return true
+    return false
+  }
   return (
     <div className={styles.calendarWrap}>
       <div className={styles.calendarNav}>
@@ -100,7 +104,7 @@ const Calendar = () => {
             <li className={styles.listItem} key={item.id} style={{ backgroundColor: item.todayBg }}>
               <button
                 type='button'
-                className={cx(styles.list, styles[item.currentStatus])}
+                className={cx(styles.list, styles[item.currentStatus], { [styles.isToday]: isToday(item.id) })}
                 onClick={() => {
                   handleModalOpen(item)
                 }}

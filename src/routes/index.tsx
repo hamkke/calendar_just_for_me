@@ -11,11 +11,7 @@ const App = () => {
     dispatch(getStatusListFB())
     dispatch(getRecapListFB())
   }, [dispatch])
-  return (
-    <div>
-      <Layout />
-    </div>
-  )
+  return <Layout />
 }
 
 export default App

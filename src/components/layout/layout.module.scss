@@ -2,12 +2,23 @@
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/flexbox';
 
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 375px;
+  overflow: hidden;
+}
+
 .main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 30px 20px;
+  padding: 30px 5px;
   background-color: white;
+  @include responsive.after(LD) {
+    padding: 30px 20px;
+  }
   @include responsive.after(LD) {
     flex-direction: row-reverse;
   }
@@ -16,7 +27,7 @@
 .header {
   width: 100%;
   height: 70px;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: bold;
   background-color: colors.$WHITE;
   border-bottom: 5px solid colors.$BLACK;

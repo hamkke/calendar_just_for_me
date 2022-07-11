@@ -6,8 +6,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 80%);
 
   @include flexbox.flexbox(center, center);
@@ -18,12 +18,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 85vw;
-    min-width: 320px;
-    padding: 40px 30px 50px;
+    width: 77vw;
+    min-width: 290px;
+    padding: 20px;
     background-color: #ffffff;
+    @include responsive.after(ML) {
+      width: 70vw;
+      padding: 40px 20px 50px;
+    }
     @include responsive.after(SD) {
       width: 70vw;
+      padding: 40px 30px 50px;
     }
     @include responsive.after(MD) {
       width: 50vw;
@@ -45,19 +50,30 @@
       flex-direction: column;
       align-items: flex-start;
       width: 100%;
-      margin: 50px 0 30px;
+      margin: 20px 0 30px;
       font-size: 16px;
       @include responsive.after(ML) {
         flex-direction: row;
-        @include flexbox.flexbox(around, center);
+        margin: 50px 0 30px;
+        @include flexbox.flexbox(center, center);
       }
 
       & label {
         margin-top: 10px;
+        font-size: 15px;
         @include flexbox.flexbox(center, center);
         cursor: pointer;
         @include responsive.after(ML) {
           margin-top: 0;
+          margin-right: 5px;
+        }
+        @include responsive.after(SD) {
+          margin-right: 10px;
+          font-size: 16px;
+        }
+
+        &:last-child {
+          margin-right: 0;
         }
       }
 
@@ -89,7 +105,8 @@
       }
 
       & input[type='color'] {
-        width: 100px;
+        width: 35px;
+        border: 3px solid colors.$GRAY2;
       }
 
       & input[type='color']::-webkit-color-swatch-wrapper {
@@ -98,18 +115,23 @@
 
       & input[type='color']::-webkit-color-swatch {
         border: none;
-        border-radius: 0;
       }
 
       & input[type='text'] {
         width: 80px;
-        padding: 2px 5px;
+        padding: 0 5px;
+        border: none;
+        border-bottom: 3px solid colors.$GRAY2 !important;
+
+        @include responsive.after(ML) {
+          width: 70px;
+        }
       }
     }
 
     .modalMemo {
       width: 100%;
-      height: 50vh;
+      height: 29vh;
       padding: 10px;
       margin-bottom: 30px;
       font-size: 18px;
@@ -127,11 +149,14 @@
 
     .closeBtn {
       position: absolute;
-      top: 25px;
+      top: 14px;
       right: 20px;
       font-size: 30px;
       font-weight: bold;
       transition: all 0.2s;
+      @include responsive.after(ML) {
+        top: 25px;
+      }
 
       &:hover {
         color: colors.$MAIN;

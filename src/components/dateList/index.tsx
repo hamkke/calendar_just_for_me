@@ -16,9 +16,9 @@ const DateList = () => {
         {userData.map((a) => {
           return (
             <li key={a.id} className={styles.listItem}>
-              {a.start}
-              <strong>&nbsp; ---&gt; &nbsp;</strong>
-              {a.end}
+              <p className={styles.listItemDate}>{a.start}</p>
+              <span>&nbsp; ---&gt; &nbsp;</span>
+              <p className={styles.listItemDate}>{a.end}</p>
               <p>&nbsp;= &nbsp;{a.totalDate}일</p>
             </li>
           )

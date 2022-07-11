@@ -160,7 +160,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
 
         <textarea className={styles.modalMemo} placeholder='메모 메모' value={memo} onChange={handleMemo} />
 
-        <button type='button' onClick={handleSave} className={styles.closeBtn}>
+        <button type='button' onClick={() => setModalOpen(false)} className={styles.closeBtn}>
           X
         </button>
         <button type='button' className={styles.saveBtn} onClick={handleSave}>
