@@ -1,4 +1,4 @@
-# 생리기록달력 만들기🦖
+# 나만을 위한 달력 만들기🦖
 # 🚀 [배포 페이지 가기](https://finaly-im-gonna-make-it.netlify.app/)
 
 # 🔧 기술 스택
@@ -42,6 +42,6 @@ src
 
 # 🎨 디자인
 
-<img align="left" src="https://user-images.githubusercontent.com/46497281/172038398-eda0ad1c-a512-4255-9513-f66f7b30561c.png" alt="메인화면" width="50%">
+<img align="left" src="https://user-images.githubusercontent.com/46497281/172038398-eda0ad1c-a512-4255-9513-f66f7b30561c.png" alt="메인화면" width="48%">
 
-<img align="right" src="https://user-images.githubusercontent.com/46497281/172038417-f41d2154-4938-42db-9e87-8107e9c7b969.png" alt="모달" width="50%">
+<img align="right" src="https://user-images.githubusercontent.com/46497281/172038417-f41d2154-4938-42db-9e87-8107e9c7b969.png" alt="모달" width="48%">
