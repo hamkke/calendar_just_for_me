@@ -16,14 +16,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin: 0 7px 30px;
 
   .btnWrap {
     display: flex;
 
     & button {
       padding: 5px 10px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: bold;
       border: 3px solid colors.$GRAY2;
       transition: all 0.2s;
@@ -31,13 +31,12 @@
         font-size: 16px;
       }
 
-      &:first-child {
-        margin-right: 10px;
+      &.goTodayBtn {
+        margin: 0 10px;
       }
 
       &:hover {
-        color: colors.$WHITE;
-        background-color: colors.$GRAY2;
+        border-color: colors.$MAIN;
       }
     }
   }
@@ -58,7 +57,7 @@
   min-width: 375px;
 
   & li {
-    flex: 1 1 14%;
+    flex: 1 1 13%;
     padding: 5px 0;
     font-size: 16px;
     font-weight: bold;
@@ -81,7 +80,7 @@
 }
 
 .listItem {
-  flex: 1 1 12%;
+  flex: 1 1 13%;
   height: 120px;
   padding: 4px;
   margin: 3px;

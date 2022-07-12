@@ -92,7 +92,7 @@ const GetDay = () => {
     setTotalDate(changeDate(currentMonth))
   }, [changeDate, currentMonth, currentYear])
 
-  return { currentMonth, currentYear, totalDate, setMonth, setYear, currentDayLength, pastDayLength }
+  return { YEAR, MONTH, currentMonth, currentYear, totalDate, setMonth, setYear, currentDayLength, pastDayLength }
 }
 
 export default GetDay

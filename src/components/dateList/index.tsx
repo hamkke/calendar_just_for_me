@@ -7,7 +7,7 @@ const DateList = () => {
   // 예전 코드
   // 이렇게 하면 값이 더해지기도 전에 나누기가 되서 값이 이상하게 나왔던 거임
   // const average = userData.reduce((a, b) => Math.floor((a + b.totalDate) / userData.length), 0)
-  const average = Math.floor(userData.reduce((a, b) => a + b.totalDate, 0) / userData.length)
+  const average = Math.floor(userData.reduce((item, idx) => item + idx.totalDate, 0) / userData.length)
 
   return (
     <div className={styles.dataListWrap}>

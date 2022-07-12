@@ -5,7 +5,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { Props } from 'types/dayList'
 
 import { db } from '../../firebase'
-import { updateDoc, doc } from 'firebase/firestore'
+import { updateDoc, doc, arrayRemove } from 'firebase/firestore'
 import { AppDispatch } from 'states'
 import { getStartTimeStemp, setStartTimeStemp, getStatusData, getRecapData, getStatusListFB } from 'states/userData'
 
@@ -25,8 +25,15 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   const [memo, setMemo] = useState(clickDate.memo || '')
   const [start, setStart] = useState(clickDate.startDate || false)
   const [end, setEnd] = useState(clickDate.endDate || false)
-  const [isOk, setIsOk] = useState(false)
-  const rrrr = dayjs(clickDate.id).valueOf()
+  const [isCheckOk, setIsCheckOk] = useState(false)
+  const [isAlreadyInList, setIsAlreadyInList] = useState(false)
+  const clickDateTP = dayjs(clickDate.id).valueOf()
+  const docStatusRef = doc(db, 'my-list', 'STATUS')
+
+  useEffect(() => {
+    const checkAlreadyInList = statusDate.map((item) => item.todayDate).includes(clickDate.id)
+    setIsAlreadyInList(checkAlreadyInList)
+  }, [clickDate.id, statusDate])
 
   const settingDate = useCallback(
     (item: string | undefined) => {
@@ -38,16 +45,12 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     [dispatch]
   )
 
-  // useEffect(() => {
-  //   if (clickDate.startDate) settingDate(clickDate.id)
-  // }, [clickDate.id, clickDate.startDate, settingDate])
-
   useEffect(() => {
     const { yesterDay, afteRaverageDay } = TIMESTEMP
-    if (yesterDay <= rrrr && rrrr < afteRaverageDay) {
-      setIsOk(true)
+    if (yesterDay <= clickDateTP && clickDateTP < afteRaverageDay) {
+      setIsCheckOk(true)
     }
-  }, [TIMESTEMP, clickDate.id, rrrr])
+  }, [TIMESTEMP, clickDate.id, clickDateTP])
 
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
@@ -78,13 +81,13 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   const setReacpList = () => {
     setEnd((prev) => !prev)
     const startDate = TIMESTEMP.standardDate
-    const docRef = doc(db, 'my-list', 'RECAP')
+    const docRecapRef = doc(db, 'my-list', 'RECAP')
     const formatRaverageDay = dayjs(TIMESTEMP.afteRaverageDay).format('YYYY-M-D')
     const result = dayjs(startDate)
       .to(formatRaverageDay)
       .replace(/[^0-9]/g, '')
 
-    updateDoc(docRef, {
+    updateDoc(docRecapRef, {
       recapList: [...recapDate, { id: clickDate.id, start: startDate, end: clickDate.id, totalDate: Number(result) }],
     })
   }
@@ -96,20 +99,18 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   }
 
   const handleSave = () => {
-    const docRef = doc(db, 'my-list', 'STATUS')
-    const isAlreadyInList = statusDate.map((a) => a.todayDate).includes(clickDate.id)
-
     if (isAlreadyInList) {
-      const qwe = statusDate.map((item) => {
+      const editListItem = statusDate.map((item) => {
         if (item.todayDate === clickDate.id) return { ...item, memo, todayBg: nowColor, startDate: start, endDate: end }
         return item
       })
-      updateDoc(docRef, {
-        statusList: [...qwe],
+      updateDoc(docStatusRef, {
+        statusList: [...editListItem],
       })
     }
+
     if (!isAlreadyInList) {
-      updateDoc(docRef, {
+      updateDoc(docStatusRef, {
         statusList: [
           ...statusDate,
           { todayDate: clickDate.id, memo, todayBg: nowColor, startDate: start, endDate: end },
@@ -120,6 +121,18 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     setModalOpen(false)
   }
 
+  const handleRemove = () => {
+    const removeItem = statusDate.reduce((a, b) => {
+      if (b.todayDate === clickDate.id) return { ...a, ...b }
+      return { ...a }
+    }, {})
+
+    updateDoc(docStatusRef, {
+      statusList: arrayRemove(removeItem),
+    })
+    dispatch(getStatusListFB())
+    setModalOpen(false)
+  }
   return (
     <div className={styles.modalWrap}>
       <div className={styles.modalBox} ref={modalOutside}>
@@ -135,7 +148,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
               onChange={handleStartEnd}
               className={cx({ [styles.checked]: start })}
               checked={start}
-              disabled={isOk}
+              disabled={isCheckOk}
             />
           </label>
           <label htmlFor='end'>
@@ -163,9 +176,17 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
         <button type='button' onClick={() => setModalOpen(false)} className={styles.closeBtn}>
           X
         </button>
-        <button type='button' className={styles.saveBtn} onClick={handleSave}>
+        <button type='button' className={styles.handleBtn} onClick={handleSave}>
           저장
         </button>
+
+        {isAlreadyInList ? (
+          <button type='button' className={styles.handleBtn} onClick={handleRemove}>
+            삭제
+          </button>
+        ) : (
+          <div />
+        )}
       </div>
     </div>
   )
