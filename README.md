@@ -24,7 +24,7 @@ src
  ┣ components # 컴포넌트를 모아놓은 폴더
  ┃ ┣ calrendar
  ┃ ┣ dateList
- ┃ ┣ layout
+ ┃ ┣ layout # 전첵 구조를 잡아주는 컴포넌트
  ┃ ┗ modal
  ┣ routes  # 페이지별 렌더링 화면을 보는 폴더
  ┣ states # 상태관리 리덕스 설정을 위한 slice, store, ts 등의 파일이 있는 폴더
@@ -37,7 +37,7 @@ src
 
 <img align="left" src="https://user-images.githubusercontent.com/46497281/178483547-6f87aee5-615c-4fdf-adb5-febc11243228.png" alt="메인화면">
 
-<img align="right" src="https://user-images.githubusercontent.com/46497281/178223005-1b90d041-8922-4606-8d5c-ecf1ab33ad95.png" alt="모달" style="margin-bottom: 30px;">
+<img align="right" src="https://user-images.githubusercontent.com/46497281/178223005-1b90d041-8922-4606-8d5c-ecf1ab33ad95.png" alt="모달" style="margin-bottom: 30px;">`
 
 
 # 🎨 디자인

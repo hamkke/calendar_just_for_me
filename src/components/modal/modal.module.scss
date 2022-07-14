@@ -1,6 +1,7 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/animation';
 
 .modalWrap {
   position: fixed;
@@ -9,7 +10,6 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 80%);
-
   @include flexbox.flexbox(center, center);
 
   .modalBox {
@@ -153,7 +153,7 @@
       right: 20px;
       font-size: 30px;
       font-weight: bold;
-      transition: all 0.2s;
+      @include animation.cubicBezier(0.2s);
       @include responsive.after(ML) {
         top: 25px;
       }
@@ -169,7 +169,7 @@
       font-size: 20px;
       font-weight: bold;
       border: 3px solid colors.$GRAY2;
-      transition: all 0.2s;
+      @include animation.cubicBezier(0.2s);
 
       &:hover {
         color: colors.$WHITE;

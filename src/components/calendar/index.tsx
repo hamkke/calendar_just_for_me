@@ -24,7 +24,14 @@ const Calendar = () => {
   const [clickDate, setClickDate] = useState<ItotalDateList>()
   const userData = useSelector(getRecapData)
   const average = Math.floor(userData.reduce((item, idx) => item + idx.totalDate, 0) / userData.length)
+  const [isBright, setIsBright] = useState(false)
+  const [qwe, setQWE] = useState('')
 
+  useEffect(() => {
+    // setQWE()
+    // setIsBright(changeBG(qwe))
+  }, [qwe])
+  // console.log(isBright)
   useEffect(() => {
     const checkStartDate = completeDate.filter((a) => {
       if (!a.startDate) return false
@@ -82,6 +89,15 @@ const Calendar = () => {
     if (item === dayjs().format('YYYY-M-D')) return true
     return false
   }
+  const changeBG = (hexColor: any) => {
+    if (hexColor === undefined) return false
+    const r = parseInt(hexColor.substring(1, 3), 16)
+    const g = parseInt(hexColor.substring(3, 5), 16)
+    const b = parseInt(hexColor.substring(5, 7), 16)
+    const brightness = 0.299 * r + 0.587 * g + 0.114 * b
+    return brightness < 155
+  }
+
   return (
     <div className={styles.calendarWrap}>
       <div className={styles.calendarNav}>
@@ -109,7 +125,11 @@ const Calendar = () => {
       <ul className={styles.listWrap}>
         {completeDate.map((item: ItotalDateList) => {
           return (
-            <li className={styles.listItem} key={item.id} style={{ backgroundColor: item.todayBg }}>
+            <li
+              className={cx(styles.listItem, { [styles.isBGdark]: changeBG(item.todayBg) })}
+              key={item.id}
+              style={{ backgroundColor: item.todayBg }}
+            >
               <button
                 type='button'
                 className={cx(styles.list, styles[item.currentStatus], { [styles.isToday]: isToday(item.id) })}
@@ -120,7 +140,7 @@ const Calendar = () => {
               >
                 {item.date}
                 <p className={styles.startendTxt}>{handleEmojiMark(item)}</p>
-                <p>{item.memo}</p>
+                <p className={cx()}>{item.memo}</p>
               </button>
             </li>
           )

@@ -1,6 +1,7 @@
 @use '/src/styles/constants/colors';
 @use '/src/styles/mixins/responsive';
 @use '/src/styles/mixins/flexbox';
+@use '/src/styles/mixins/animation';
 
 .calendarWrap {
   width: 100%;
@@ -13,10 +14,8 @@
 }
 
 .calendarNav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin: 0 7px 30px;
+  @include flexbox.flexbox(between, center);
 
   .btnWrap {
     display: flex;
@@ -26,7 +25,7 @@
       font-size: 14px;
       font-weight: bold;
       border: 3px solid colors.$GRAY2;
-      transition: all 0.2s;
+      @include animation.cubicBezier(0.8s);
       @include responsive.after(LD) {
         font-size: 16px;
       }
@@ -51,9 +50,7 @@
 }
 
 .dayListWrap {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
+  @include flexbox.flexbox(around, start);
   min-width: 375px;
 
   & li {
@@ -153,5 +150,11 @@
 
   & .nextMonth {
     color: colors.$GRAYD;
+  }
+
+  &.isBGdark p,
+  &.isBGdark button {
+    color: colors.$WHITE;
+    border-color: colors.$WHITE;
   }
 }
