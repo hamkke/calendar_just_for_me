@@ -42,6 +42,6 @@ src
 
 # 🎨 디자인
 
-<img align="left" src="https://user-images.githubusercontent.com/46497281/172038398-eda0ad1c-a512-4255-9513-f66f7b30561c.png" alt="메인화면" width="48%">
+<img align="left" src="https://user-images.githubusercontent.com/46497281/172038398-eda0ad1c-a512-4255-9513-f66f7b30561c.png" alt="메인화면">
 
-<img align="right" src="https://user-images.githubusercontent.com/46497281/172038417-f41d2154-4938-42db-9e87-8107e9c7b969.png" alt="모달" width="48%">
+<img align="right" src="https://user-images.githubusercontent.com/46497281/172038417-f41d2154-4938-42db-9e87-8107e9c7b969.png" alt="모달">
