@@ -24,14 +24,7 @@ const Calendar = () => {
   const [clickDate, setClickDate] = useState<ItotalDateList>()
   const userData = useSelector(getRecapData)
   const average = Math.floor(userData.reduce((item, idx) => item + idx.totalDate, 0) / userData.length)
-  const [isBright, setIsBright] = useState(false)
-  const [qwe, setQWE] = useState('')
 
-  useEffect(() => {
-    // setQWE()
-    // setIsBright(changeBG(qwe))
-  }, [qwe])
-  // console.log(isBright)
   useEffect(() => {
     const checkStartDate = completeDate.filter((a) => {
       if (!a.startDate) return false
