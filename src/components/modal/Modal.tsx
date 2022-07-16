@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, ChangeEvent } from 'react'
+import { useState, useRef, useEffect, useCallback, ChangeEventHandler } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -15,25 +15,28 @@ import styles from './modal.module.scss'
 dayjs.extend(relativeTime)
 
 const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
+  const { id, memo, todayBg, startDate, endDate, year, month, date } = clickDate
   const dispatch = useDispatch<AppDispatch>()
   const TIMESTEMP = useSelector(getStartTimeStemp)
   const statusDate = useSelector(getStatusData)
   const recapDate = useSelector(getRecapData)
   const modalOutside = useRef<HTMLDivElement>(null)
-  const [nowColor, setNowcolor] = useState(clickDate.todayBg || '#ffffff')
+
+  const [nowColor, setNowcolor] = useState(todayBg || '#ffffff')
   const [hexadecimalColor, setHexadecimalColor] = useState(nowColor)
-  const [memo, setMemo] = useState(clickDate.memo || '')
-  const [start, setStart] = useState(clickDate.startDate || false)
-  const [end, setEnd] = useState(clickDate.endDate || false)
+  const [nowMemo, setNomMemo] = useState(memo || '')
+  const [start, setStart] = useState(startDate || false)
+  const [end, setEnd] = useState(endDate || false)
   const [isCheckOk, setIsCheckOk] = useState(false)
   const [isAlreadyInList, setIsAlreadyInList] = useState(false)
-  const clickDateTP = dayjs(clickDate.id).valueOf()
+
+  const clickDateTP = dayjs(id).valueOf()
   const docStatusRef = doc(db, 'my-list', 'STATUS')
 
   useEffect(() => {
-    const checkAlreadyInList = statusDate.map((item) => item.todayDate).includes(clickDate.id)
+    const checkAlreadyInList = statusDate.map((item) => item.todayDate).includes(id)
     setIsAlreadyInList(checkAlreadyInList)
-  }, [clickDate.id, statusDate])
+  }, [id, statusDate])
 
   const settingDate = useCallback(
     (item: string | undefined) => {
@@ -50,7 +53,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     if (yesterDay <= clickDateTP && clickDateTP < afteRaverageDay) {
       setIsCheckOk(true)
     }
-  }, [TIMESTEMP, clickDate.id, clickDateTP])
+  }, [TIMESTEMP, id, clickDateTP])
 
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
@@ -63,11 +66,11 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     }
   }, [modalOutside, modalOpen, setModalOpen])
 
-  const handleMemo = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setMemo(e.currentTarget.value)
+  const handleMemo: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    setNomMemo(e.currentTarget.value)
   }
 
-  const handleColor = (e: ChangeEvent<HTMLInputElement>) => setHexadecimalColor(e.currentTarget.value)
+  const handleColor: ChangeEventHandler<HTMLInputElement> = (e) => setHexadecimalColor(e.currentTarget.value)
   useEffect(() => {
     const debounce = setTimeout(() => {
       if (hexadecimalColor.length < 6) return setNowcolor(nowColor)
@@ -80,28 +83,28 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
 
   const setReacpList = () => {
     setEnd((prev) => !prev)
-    const startDate = TIMESTEMP.standardDate
+    const reacpStartDate = TIMESTEMP.standardDate
     const docRecapRef = doc(db, 'my-list', 'RECAP')
     const formatRaverageDay = dayjs(TIMESTEMP.afteRaverageDay).format('YYYY-M-D')
-    const result = dayjs(startDate)
+    const result = dayjs(reacpStartDate)
       .to(formatRaverageDay)
       .replace(/[^0-9]/g, '')
 
     updateDoc(docRecapRef, {
-      recapList: [...recapDate, { id: clickDate.id, start: startDate, end: clickDate.id, totalDate: Number(result) }],
+      recapList: [...recapDate, { id, start: reacpStartDate, end: id, totalDate: Number(result) }],
     })
   }
 
-  const handleStartEnd = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleStartEnd: ChangeEventHandler<HTMLInputElement> = (e) => {
     const target = e.currentTarget.id
-    if (target === 'start') settingDate(clickDate.id)
+    if (target === 'start') settingDate(id)
     if (target === 'end') setReacpList()
   }
 
   const handleSave = () => {
     if (isAlreadyInList) {
       const editListItem = statusDate.map((item) => {
-        if (item.todayDate === clickDate.id) return { ...item, memo, todayBg: nowColor, startDate: start, endDate: end }
+        if (item.todayDate === id) return { ...item, memo: nowMemo, todayBg: nowColor, startDate: start, endDate: end }
         return item
       })
       updateDoc(docStatusRef, {
@@ -111,10 +114,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
 
     if (!isAlreadyInList) {
       updateDoc(docStatusRef, {
-        statusList: [
-          ...statusDate,
-          { todayDate: clickDate.id, memo, todayBg: nowColor, startDate: start, endDate: end },
-        ],
+        statusList: [...statusDate, { todayDate: id, nowMemo, todayBg: nowColor, startDate: start, endDate: end }],
       })
     }
     dispatch(getStatusListFB())
@@ -123,7 +123,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
 
   const handleRemove = () => {
     const removeItem = statusDate.reduce((a, b) => {
-      if (b.todayDate === clickDate.id) return { ...a, ...b }
+      if (b.todayDate === id) return { ...a, ...b }
       return { ...a }
     }, {})
 
@@ -137,7 +137,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     <div className={styles.modalWrap}>
       <div className={styles.modalBox} ref={modalOutside}>
         <h2 className={styles.todayDateTitle}>
-          {clickDate.year}년 {clickDate.month}월 {clickDate.date}일
+          {year}년 {month}월 {date}일
         </h2>
         <div className={styles.inputWrap}>
           <label htmlFor='start'>
@@ -171,7 +171,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
           </label>
         </div>
 
-        <textarea className={styles.modalMemo} placeholder='메모 메모' value={memo} onChange={handleMemo} />
+        <textarea className={styles.modalMemo} placeholder='메모 메모' value={nowMemo} onChange={handleMemo} />
 
         <button type='button' onClick={() => setModalOpen(false)} className={styles.closeBtn}>
           X

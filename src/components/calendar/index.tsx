@@ -1,4 +1,4 @@
-import { useCallback, useState, MouseEvent, useEffect } from 'react'
+import { useCallback, useState, useEffect, MouseEventHandler } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 
@@ -50,23 +50,24 @@ const Calendar = () => {
     setModalOpen(true)
   }
 
-  const handleMonth = useCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      if (e.currentTarget.value === 'past') {
+  const handleMonth: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      const { value } = e.currentTarget
+      if (value === 'past') {
         setMonth(currentMonth - 1)
         if (currentMonth === 1) {
           setMonth(12)
           setYear(currentYear - 1)
         }
       }
-      if (e.currentTarget.value === 'next') {
+      if (value === 'next') {
         setMonth(currentMonth + 1)
         if (currentMonth === 12) {
           setMonth(1)
           setYear(currentYear + 1)
         }
       }
-      if (e.currentTarget.value === 'today') {
+      if (value === 'today') {
         setMonth(MONTH)
         setYear(YEAR)
       }
