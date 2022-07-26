@@ -114,7 +114,10 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
 
     if (!isAlreadyInList) {
       updateDoc(docStatusRef, {
-        statusList: [...statusDate, { todayDate: id, nowMemo, todayBg: nowColor, startDate: start, endDate: end }],
+        statusList: [
+          ...statusDate,
+          { todayDate: id, memo: nowMemo, todayBg: nowColor, startDate: start, endDate: end },
+        ],
       })
     }
     dispatch(getStatusListFB())
