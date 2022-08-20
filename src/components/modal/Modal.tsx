@@ -85,11 +85,9 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     setEnd((prev) => !prev)
     const reacpStartDate = TIMESTEMP.standardDate
     const docRecapRef = doc(db, 'my-list', 'RECAP')
-    const formatRaverageDay = dayjs(TIMESTEMP.afteRaverageDay).format('YYYY-M-D')
     const result = dayjs(reacpStartDate)
-      .to(formatRaverageDay)
+      .to(id)
       .replace(/[^0-9]/g, '')
-
     updateDoc(docRecapRef, {
       recapList: [...recapDate, { id, start: reacpStartDate, end: id, totalDate: Number(result) }],
     })
