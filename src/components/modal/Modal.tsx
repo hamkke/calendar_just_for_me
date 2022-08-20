@@ -49,8 +49,8 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
   )
 
   useEffect(() => {
-    const { yesterDay, afteRaverageDay } = TIMESTEMP
-    if (yesterDay <= clickDateTP && clickDateTP < afteRaverageDay) {
+    const { yesterDay, afteRaverageDay, standardDate } = TIMESTEMP
+    if (standardDate && yesterDay <= clickDateTP && clickDateTP < afteRaverageDay) {
       setIsCheckOk(true)
     }
   }, [TIMESTEMP, id, clickDateTP])
