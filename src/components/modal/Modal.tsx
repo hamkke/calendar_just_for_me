@@ -86,6 +86,7 @@ const Modal = ({ setModalOpen, modalOpen, clickDate }: Props) => {
     const reacpStartDate = TIMESTEMP.standardDate
     const docRecapRef = doc(db, 'my-list', 'RECAP')
     const result = dayjs(reacpStartDate)
+      .subtract(1, 'day')
       .to(id)
       .replace(/[^0-9]/g, '')
     updateDoc(docRecapRef, {
