@@ -117,11 +117,12 @@ const Calendar = () => {
         })}
       </ul>
       <ul className={styles.listWrap}>
-        {completeDate.map((item: ItotalDateList) => {
+        {completeDate.map((item: ItotalDateList, idx) => {
+          const key = `day-list-${item.id}-${idx}`
           return (
             <li
               className={cx(styles.listItem, { [styles.isBGdark]: changeBG(item.todayBg) })}
-              key={item.id}
+              key={key}
               style={{ backgroundColor: item.todayBg }}
             >
               <button

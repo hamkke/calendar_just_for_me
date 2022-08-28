@@ -13,13 +13,14 @@ const DateList = () => {
     <div className={styles.dataListWrap}>
       <h2>평균 생리일: {average}일</h2>
       <ul className={styles.listWrap}>
-        {userData.map((a) => {
+        {userData.map((item, idx) => {
+          const key = `day-recap-list-${item.id}-${idx}`
           return (
-            <li key={a.id} className={styles.listItem}>
-              <p className={styles.listItemDate}>{a.start}</p>
+            <li key={key} className={styles.listItem}>
+              <p className={styles.listItemDate}>{item.start}</p>
               <span>&nbsp; ---&gt; &nbsp;</span>
-              <p className={styles.listItemDate}>{a.end}</p>
-              <p>&nbsp;= &nbsp;{a.totalDate}일</p>
+              <p className={styles.listItemDate}>{item.end}</p>
+              <p>&nbsp;= &nbsp;{item.totalDate}일</p>
             </li>
           )
         })}
